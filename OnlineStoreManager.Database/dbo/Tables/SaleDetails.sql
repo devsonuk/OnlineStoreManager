@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Sales_Details]
+﻿CREATE TABLE [dbo].[SaleDetails]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
     [SaleId] INT NOT NULL, 

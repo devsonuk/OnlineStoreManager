@@ -1,21 +1,26 @@
 ﻿using Caliburn.Micro;
+using OnlineStoreManager.DesktopUI.Helpers;
 using OnlineStoreManager.DesktopUI.ViewModels;
+using OnlineStoreManager.UILibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace OnlineStoreManager.DesktopUI
 {
     public class Bootstrapper : BootstrapperBase
     {
-        private SimpleContainer _container = new SimpleContainer();
+        private readonly SimpleContainer _container = new SimpleContainer();
 
         public Bootstrapper()
         {
             Initialize();
+
+            ConventionManager.AddElementConvention<PasswordBox>(PasswordBoxHelper.BoundPasswordProperty, "Password", "PasswordChanged");
         }
 
         protected override void Configure()
@@ -24,7 +29,10 @@ namespace OnlineStoreManager.DesktopUI
 
             _container
                 .Singleton<IWindowManager, WindowManager>()
-                .Singleton<IEventAggregator, EventAggregator>();
+                .Singleton<IEventAggregator, EventAggregator>()
+                .Singleton<ILoggedInUserModel, LoggedInUserModel>()
+                .Singleton<IApiHelper, ApiHelper>();
+
 
             GetType().Assembly.GetTypes()
                 .Where(type => type.IsClass)
