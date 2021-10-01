@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreManager.Domain",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreManager.Repository", "OnlineStoreManager.Repository\OnlineStoreManager.Repository.csproj", "{CAF6F353-A34D-4418-8A3E-B4A12A38D23A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreManager.DesktopUI.Lib", "OnlineStoreManager.DesktopUI.Lib\OnlineStoreManager.DesktopUI.Lib.csproj", "{28A79D40-9912-4152-AC88-197E4D789630}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreManager.DesktopUI.Library", "OnlineStoreManager.DesktopUI.Library\OnlineStoreManager.DesktopUI.Library.csproj", "{FF84A84C-41B7-4DA5-A79D-4A706297C6FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +43,10 @@ Global
 		{CAF6F353-A34D-4418-8A3E-B4A12A38D23A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAF6F353-A34D-4418-8A3E-B4A12A38D23A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAF6F353-A34D-4418-8A3E-B4A12A38D23A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{28A79D40-9912-4152-AC88-197E4D789630}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28A79D40-9912-4152-AC88-197E4D789630}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28A79D40-9912-4152-AC88-197E4D789630}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28A79D40-9912-4152-AC88-197E4D789630}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF84A84C-41B7-4DA5-A79D-4A706297C6FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF84A84C-41B7-4DA5-A79D-4A706297C6FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF84A84C-41B7-4DA5-A79D-4A706297C6FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF84A84C-41B7-4DA5-A79D-4A706297C6FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

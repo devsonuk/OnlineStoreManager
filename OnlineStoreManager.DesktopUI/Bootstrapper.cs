@@ -1,7 +1,7 @@
 ﻿using Caliburn.Micro;
 using OnlineStoreManager.DesktopUI.Helpers;
-using OnlineStoreManager.DesktopUI.Lib.Helpers;
-using OnlineStoreManager.DesktopUI.Lib.Models;
+using OnlineStoreManager.DesktopUI.Library.Helpers;
+using OnlineStoreManager.DesktopUI.Library.Models;
 using OnlineStoreManager.DesktopUI.ViewModels;
 using System;
 using System.Collections.Generic;

@@ -151,9 +151,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OnlineStoreManager.DesktopUI.Lib\OnlineStoreManager.DesktopUI.Lib.csproj">
-      <Project>{28A79D40-9912-4152-AC88-197E4D789630}</Project>
-      <Name>OnlineStoreManager.DesktopUI.Lib</Name>
+    <ProjectReference Include="..\OnlineStoreManager.DesktopUI.Library\OnlineStoreManager.DesktopUI.Library.csproj">
+      <Project>{FF84A84C-41B7-4DA5-A79D-4A706297C6FC}</Project>
+      <Name>OnlineStoreManager.DesktopUI.Library</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

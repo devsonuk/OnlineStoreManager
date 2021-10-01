@@ -1,6 +1,6 @@
 ﻿using Caliburn.Micro;
 using OnlineStoreManager.DesktopUI.EventModels;
-using OnlineStoreManager.DesktopUI.Lib.Helpers;
+using OnlineStoreManager.DesktopUI.Library.Helpers;
 using System;
 using System.Threading.Tasks;
 
