@@ -66,11 +66,11 @@
     <None Include="PublishLocations\OnlineStoreManager.publish.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\Users.sql" />
     <Build Include="dbo\Tables\Sales.sql" />
     <Build Include="dbo\Tables\SaleDetails.sql" />
     <Build Include="dbo\Tables\Products.sql" />
     <Build Include="dbo\Tables\Inventories.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetUser.sql" />
+    <Build Include="dbo\Tables\Users.sql" />
   </ItemGroup>
 </Project>

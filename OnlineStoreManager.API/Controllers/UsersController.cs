@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using OnlineStoreManager.Domain.Entities;
-using OnlineStoreManager.Repository.Repository;
-using System.Web;
+using OnlineStoreManager.Repository.Generic;
 using System.Web.Http;
 
 
@@ -10,11 +9,11 @@ namespace OnlineStoreManager.API.Controllers
     [Authorize]
     public class UsersController : ApiController
     {
-        private readonly UserRepository _userRepository;
+        private readonly GenericRepository<User> _userRepository;
 
         public UsersController()
         {
-            _userRepository = new UserRepository();
+            _userRepository = new GenericRepository<User>("OnlineStoreManager");
         }
 
         // GET: Users/Details/5
@@ -22,8 +21,8 @@ namespace OnlineStoreManager.API.Controllers
         public User Get()
         {
             var userId = RequestContext.Principal.Identity.GetUserId();
-            return _userRepository.Get(userId);
+            var user = _userRepository.Get(userId);
+            return user;
         }
-
     }
 }

@@ -1,10 +1,7 @@
 ﻿using Caliburn.Micro;
-using OnlineStoreManager.DesktopUI.Helpers;
-using OnlineStoreManager.UILibrary.Models;
+using OnlineStoreManager.DesktopUI.EventModels;
+using OnlineStoreManager.DesktopUI.Lib.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OnlineStoreManager.DesktopUI.ViewModels
@@ -72,6 +69,7 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
 
                 // Capture more information about the user
                 await _apiHelper.FetchLoggedUser(user.Access_Token);
+                await _events.PublishOnUIThreadAsync(new LogOnEvent());
 
             }
             catch (Exception ex)

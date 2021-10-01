@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="OnlineStoreManager.DesktopUI.Views.SalesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:OnlineStoreManager.DesktopUI.Views"
+             mc:Ignorable="d" Background="White" FontSize="18"
+             d:DesignHeight="540" d:DesignWidth="720">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Header-->
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Sales Page" 
+                   Grid.ColumnSpan="3" FontSize="32" Margin="0 0 0 20"/>
+
+        <!--Column 0 -->
+
+
+        <TextBox Grid.Row="1" Grid.Column="0" Text="Items" HorizontalAlignment="Right" Width="250"/>
+        <ListBox x:Name="Products" Grid.Row="2" Grid.Column="0" 
+                 MinHeight="200" MinWidth="200" SelectedItem="{Binding SelectedProduct}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+
+        <!--Column 1-->
+        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" 
+                    Margin="20 0">
+            <DockPanel>
+                <TextBlock Text="Quantity: "/>
+                <TextBox x:Name="ItemQuantity" MinWidth="100"  Margin="10 5 0 10" TextAlignment="Right"/>
+            </DockPanel>
+            <Button x:Name="AddToCart" Content="Add to Cart"  
+                    Margin="0 0 0 25" Padding="5"/>
+            <Button x:Name="RemoveFromCart" Content="Remove from Cart" 
+                    Padding="5"/>
+
+        </StackPanel>
+
+        <!--Column 2 -->
+        <TextBox Grid.Row="1" Grid.Column="2" Text="Cart"/>
+
+        <ListBox x:Name="Cart" Grid.Row="2" Grid.Column="2"
+                 MinHeight="200" MinWidth="200">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <TextBlock Text="{Binding Product.Name}"/>
+                        <TextBlock Text="{Binding QuantityInCart}"/>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!--<StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
+            <TextBlock  Text="SubTotal: " />
+            <TextBlock x:Name="SubTotal"  Text="$0.00" TextAlignment="Right" />
+        </StackPanel>-->
+
+        <DockPanel Grid.Row="3" Grid.Column="2">
+            <TextBlock  Text="SubTotal: " Margin="0 10 15 0" />
+            <TextBlock x:Name="SubTotal"  Text="$0.00" TextAlignment="Right" 
+                       Margin=" 0 10, 0, 10"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="4" Grid.Column="2">
+            <TextBlock  Text="Tax: " />
+            <TextBlock x:Name="Tax"  Text="$0.00" TextAlignment="Right" 
+                       Margin=" 0 0, 0, 10"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="5" Grid.Column="2" >
+            <TextBlock  Text="Total: " />
+            <TextBlock x:Name="Total"  Text="$0.00" TextAlignment="Right" />
+        </DockPanel>
+
+        <Button Grid.Row="6" Grid.Column="2" x:Name="CheckOut" Content="Check Out"
+                Margin="0 20 0 0" Padding="5"/>
+
+    </Grid>
+</UserControl>

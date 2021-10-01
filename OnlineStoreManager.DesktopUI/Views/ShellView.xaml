@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OnlineStoreManager.DesktopUI.Views"
         mc:Ignorable="d" FontSize="16"
-        Title="ShellView" Height="540" Width="800">
+        Title="ShellView" Height="600" Width="800">
     <DockPanel>
         <Menu DockPanel.Dock="Top" FontSize="16">
             <MenuItem Header="_File">

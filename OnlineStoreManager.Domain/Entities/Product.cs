@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace OnlineStoreManager.Domain.Entities
 {
-    public class User : BaseEntity
+    public class Product : BaseEntity
     {
-        public string AuthId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public double RetailPrice { get; set; }
+        public int QuantityInStock { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-
     }
 }

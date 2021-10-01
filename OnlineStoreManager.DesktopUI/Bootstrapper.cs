@@ -1,12 +1,11 @@
 ﻿using Caliburn.Micro;
 using OnlineStoreManager.DesktopUI.Helpers;
+using OnlineStoreManager.DesktopUI.Lib.Helpers;
+using OnlineStoreManager.DesktopUI.Lib.Models;
 using OnlineStoreManager.DesktopUI.ViewModels;
-using OnlineStoreManager.UILibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -30,7 +29,7 @@ namespace OnlineStoreManager.DesktopUI
             _container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
-                .Singleton<ILoggedInUserModel, LoggedInUserModel>()
+                .Singleton<ILoggedUserModel, LoggedUserModel>()
                 .Singleton<IApiHelper, ApiHelper>();
 
 

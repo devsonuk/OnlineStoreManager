@@ -4,9 +4,10 @@ BEGIN
 	SET NOCOUNT ON;
 
 	SELECT Id
+		,AuthId
 		,FirstName
 		,LastName
-		,EmailAddress
+		,Email
 		,CreatedAt
 		,UpdatedAt
 	FROM [dbo].Users
