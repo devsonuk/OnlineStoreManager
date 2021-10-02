@@ -5,5 +5,6 @@
     [Quantity] INT NOT NULL DEFAULT 1, 
     [PurchasePrice] MONEY NOT NULL, 
     [CreatedAt] DATETIME2 NOT NULL DEFAULT getutcdate(), 
-    [UpdatedAt] DATETIME2 NULL
+    [UpdatedAt] DATETIME2 NULL, 
+    CONSTRAINT [FK_Inventories_ToProducts] FOREIGN KEY ([ProductId]) REFERENCES [dbo].[Products]([Id])
 )

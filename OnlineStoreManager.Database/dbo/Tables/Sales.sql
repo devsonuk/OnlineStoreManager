@@ -1,10 +1,12 @@
 ﻿CREATE TABLE [dbo].[Sales]
 (
-	[CashierId] NVARCHAR(128) NOT NULL PRIMARY KEY, 
+    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	[CashierId] INT NOT NULL, 
     [SubTotal] MONEY NOT NULL, 
     [Tax] MONEY NOT NULL, 
     [Total] MONEY NOT NULL,
-    [CreatedAt] DATETIME2 NOT NULL,
-    [UpdatedAt] DATETIME2 NULL DEFAULT getutcdate(),
+    [CreatedAt] DATETIME2 NOT NULL DEFAULT getutcdate(),
+    [UpdatedAt] DATETIME2 NULL, 
+    CONSTRAINT [FK_Sales_ToUsers] FOREIGN KEY ([CashierId]) REFERENCES [dbo].[Users]([Id])
 
 )
