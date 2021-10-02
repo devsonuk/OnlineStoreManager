@@ -111,16 +111,9 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
             get
             {
                 double taxAmount = 0;
-                var taxRate = _configHelper.GetTaxRate();
-
-                foreach (var item in Cart)
-                {
-                    if (item.Product.IsTaxable)
-                    {
-                        taxAmount += (item.Product.RetailPrice * item.QuantityInCart * taxRate) / 100;
-
-                    }
-                }
+                var taxRate = _configHelper.GetTaxRate()/100;
+                taxAmount = Cart.Where(c => c.Product.IsTaxable)
+                    .Sum(c => c.Product.RetailPrice * c.QuantityInCart * taxRate);
                 _tax = taxAmount;
                 return taxAmount.ToString("C");
             }
