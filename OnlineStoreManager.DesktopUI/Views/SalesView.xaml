@@ -38,7 +38,7 @@
                  MinHeight="200" MinWidth="200" SelectedItem="{Binding SelectedProduct}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}"/>
+                    <TextBlock Text="{Binding Display}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
 
@@ -66,8 +66,8 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <DockPanel>
-                        <TextBlock Text="{Binding Product.Name}"/>
-                        <TextBlock Text="{Binding QuantityInCart}"/>
+                        <TextBlock Text="{Binding Product.Name}" Margin="0 0 10px 0 "/>
+                        <TextBlock Text="{Binding QuantityInCart}" HorizontalAlignment="Right"/>
                     </DockPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

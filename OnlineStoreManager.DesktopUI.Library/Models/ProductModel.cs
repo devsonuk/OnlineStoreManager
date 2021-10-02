@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineStoreManager.Domain.Entities
+namespace OnlineStoreManager.DesktopUI.Library.Models
 {
-    public class Product : BaseEntity
+    public class ProductModel
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -15,5 +15,7 @@ namespace OnlineStoreManager.Domain.Entities
         public bool IsTaxable { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+
+        public string Display => $"{Name} : {RetailPrice} : {QuantityInStock}";
     }
 }

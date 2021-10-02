@@ -2,6 +2,8 @@
 using OnlineStoreManager.DesktopUI.Helpers;
 using OnlineStoreManager.DesktopUI.Library.Helpers;
 using OnlineStoreManager.DesktopUI.Library.Models;
+using OnlineStoreManager.DesktopUI.Library.Services;
+using OnlineStoreManager.DesktopUI.Library.Services.Interfaces;
 using OnlineStoreManager.DesktopUI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -24,12 +26,14 @@ namespace OnlineStoreManager.DesktopUI
 
         protected override void Configure()
         {
-            _container.Instance(_container);
+            _ = _container.Instance(_container)
+                .PerRequest<IProductService, ProductService>();
 
-            _container
+            _ = _container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
                 .Singleton<ILoggedUserModel, LoggedUserModel>()
+                .Singleton<IConfigHelper,ConfigHelper>()
                 .Singleton<IApiHelper, ApiHelper>();
 
 
