@@ -57,9 +57,12 @@
     <Compile Include="Models\ILoggedUserModel.cs" />
     <Compile Include="Models\LoggedUserModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\SaleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IProductService.cs" />
+    <Compile Include="Services\ISaleService.cs" />
     <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\SaleService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

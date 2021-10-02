@@ -42,7 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="Clients\SaleModel.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\Sale.cs" />
+    <Compile Include="Entities\SaleDetail.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

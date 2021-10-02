@@ -36,7 +36,7 @@ namespace OnlineStoreManager.Repository.Generic
         #region Add Methods
 
         /// <inheritdoc cref="Add"/>
-        public long Add(TEntity entity)
+        public int Add(TEntity entity)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {

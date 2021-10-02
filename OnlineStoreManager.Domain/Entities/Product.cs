@@ -10,7 +10,7 @@ namespace OnlineStoreManager.Domain.Entities
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public double RetailPrice { get; set; }
+        public decimal RetailPrice { get; set; }
         public int QuantityInStock { get; set; }
         public bool IsTaxable { get; set; }
         public DateTime CreatedAt { get; set; }

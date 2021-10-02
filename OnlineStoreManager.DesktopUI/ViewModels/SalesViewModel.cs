@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using OnlineStoreManager.DesktopUI.Library.Helpers;
 using OnlineStoreManager.DesktopUI.Library.Models;
+using OnlineStoreManager.DesktopUI.Library.Services;
 using OnlineStoreManager.DesktopUI.Library.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,14 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
 {
     public class SalesViewModel : Screen
     {
-        private IProductService _productService;
+        private readonly IProductService _productService;
+        private readonly ISaleService _saleService;
         private readonly IConfigHelper _configHelper;
 
-        public SalesViewModel(IProductService productEndPoint, IConfigHelper configHelper)
+        public SalesViewModel(IProductService productEndPoint, IConfigHelper configHelper, ISaleService saleService)
         {
             _productService = productEndPoint;
+            _saleService = saleService;
             _configHelper = configHelper;
         }
 
@@ -96,9 +99,9 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
             {
                 double subTotal = 0;
 
-                foreach (var item in Cart)
+                foreach (CartItemModel item in Cart)
                 {
-                    subTotal += (item.Product.RetailPrice * item.QuantityInCart);
+                    subTotal += item.Product.RetailPrice * item.QuantityInCart;
                 }
 
                 _subTotal = subTotal;
@@ -111,7 +114,7 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
             get
             {
                 double taxAmount = 0;
-                var taxRate = _configHelper.GetTaxRate()/100;
+                double taxRate = _configHelper.GetTaxRate() / 100;
                 taxAmount = Cart.Where(c => c.Product.IsTaxable)
                     .Sum(c => c.Product.RetailPrice * c.QuantityInCart * taxRate);
                 _tax = taxAmount;
@@ -123,27 +126,15 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
         {
             get
             {
-                var total = _subTotal + _tax;
+                double total = _subTotal + _tax;
                 _total = total;
                 return total.ToString("C");
             }
         }
 
-        public bool CanAddToCart
-        {
-            get
-            {
-
-                // Make sure something is selected
-                // Make Sure there is an item quantity
-                if (ItemQuantity > 0 && SelectedProduct?.QuantityInStock >= ItemQuantity)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-        }
+        // Make sure something is selected
+        // Make Sure there is an item quantity
+        public bool CanAddToCart => ItemQuantity > 0 && SelectedProduct?.QuantityInStock >= ItemQuantity;
 
         public void AddToCart()
         {
@@ -171,6 +162,7 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
             NotifyOfPropertyChange(() => SubTotal);
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
+            NotifyOfPropertyChange(() => CanCheckOut);
         }
 
         public bool CanRemoveFromCart
@@ -188,27 +180,20 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
         public void RemoveFromCart()
         {
 
-
             NotifyOfPropertyChange(() => SubTotal);
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
+            NotifyOfPropertyChange(() => CanCheckOut);
         }
 
-        public bool CanCheckOut
+        // Make sure there is something in the cart
+        public bool CanCheckOut => Cart.Count > 0;
+
+        public async Task CheckOut()
         {
-            get
-            {
-                var output = false;
+            List<SaleModel> sale = Cart.Select(c => new SaleModel { ProductId = c.Product.Id, Quantity = c.QuantityInCart }).ToList();
 
-                // Make sure there is something in the cart
-
-                return output;
-            }
-        }
-
-        public void CheckOut()
-        {
-
+            _ = await _saleService.AddAsync(sale);
         }
 
     }
