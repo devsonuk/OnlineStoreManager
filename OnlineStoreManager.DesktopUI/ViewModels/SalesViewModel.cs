@@ -35,7 +35,8 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
         private async Task LoadProducts()
         {
             var productList = await _productService.GetAll();
-            Products = new BindingList<ProductModel>(productList);
+            var AvailableProds = productList.Where(p => p.QuantityInStock > 0).ToList();
+            Products = new BindingList<ProductModel>(AvailableProds);
         }
 
         private BindingList<ProductModel> _products;
@@ -140,12 +141,13 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
         {
 
             var existingItem = Cart.FirstOrDefault(c => c.Product == SelectedProduct);
+            int item_idx = Cart.IndexOf(existingItem);
 
             if (existingItem != null)
             {
                 existingItem.QuantityInCart += ItemQuantity;
                 Cart.Remove(existingItem);
-                Cart.Add(existingItem);
+                Cart.Insert(item_idx, existingItem);
             }
             else
             {
@@ -157,12 +159,22 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
                 Cart.Add(item);
             }
             SelectedProduct.QuantityInStock -= ItemQuantity;
+
+            var existingProd = Products.FirstOrDefault(p => p.Id == SelectedProduct.Id);
+            int prod_idx = Products.IndexOf(existingProd);
+            if (existingProd != null)
+            {
+                Products.Remove(existingProd);
+                Products.Insert(prod_idx, existingProd);
+            }
+
             ItemQuantity = 1;
             NotifyOfPropertyChange(() => Cart);
             NotifyOfPropertyChange(() => SubTotal);
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
             NotifyOfPropertyChange(() => CanCheckOut);
+            NotifyOfPropertyChange(() => Products);
         }
 
         public bool CanRemoveFromCart
@@ -193,7 +205,10 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
         {
             List<SaleModel> sale = Cart.Select(c => new SaleModel { ProductId = c.Product.Id, Quantity = c.QuantityInCart }).ToList();
 
-            _ = await _saleService.AddAsync(sale);
+            int saleId = await _saleService.AddAsync(sale);
+
+            await LoadProducts();
+            Cart.Clear();
         }
 
     }

@@ -22,10 +22,11 @@ namespace OnlineStoreManager.API.Services
             _saleRepository = new GenericRepository<Sale>("OnlineStoreManager");
             _saleDetailRepository = new GenericRepository<SaleDetail>("OnlineStoreManager");
         }
-        public void Add(List<SaleModel> saleInfo, int cashierId)
+        public int Add(List<SaleModel> saleInfo, int cashierId)
         {
             decimal taxRate = (decimal)(ConfigHelper.GetTaxRate() / 100);
             List<SaleDetail> details = new List<SaleDetail>();
+            List<Product> products = new List<Product>();
 
             saleInfo.ForEach(s =>
             {
@@ -37,20 +38,23 @@ namespace OnlineStoreManager.API.Services
                 };
 
                 // Collect info
-                Product prodInfo = _productRepository.Get(detail.ProductId);
+                Product prod = _productRepository.Get(detail.ProductId);
 
-                if (prodInfo == null)
+                if (prod == null)
                 {
                     throw new Exception($"The product Id of {detail.ProductId} could not found in database.");
                 }
 
-                detail.CumulativePrice = prodInfo.RetailPrice * detail.Quantity;
+                detail.CumulativePrice = prod.RetailPrice * detail.Quantity;
 
-                if (prodInfo.IsTaxable)
+                if (prod.IsTaxable)
                 {
                     detail.Tax = detail.CumulativePrice * taxRate;
                 }
                 details.Add(detail);
+
+                prod.QuantityInStock -= prod.QuantityInStock >= s.Quantity ? s.Quantity : throw new Exception($"Invalid Product Quantity, details: {prod.Name}({prod.Id}).");
+                products.Add(prod);
             });
 
             decimal subTotal = details.Sum(d => d.CumulativePrice);
@@ -72,6 +76,12 @@ namespace OnlineStoreManager.API.Services
                 _ = _saleDetailRepository.Add(sd);
             });
 
+            products.ForEach(p =>
+            {
+                _productRepository.Update(p);
+            });
+
+            return saleId;
         }
 
         public Sale Get(int id)

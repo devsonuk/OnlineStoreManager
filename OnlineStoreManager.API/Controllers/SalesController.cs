@@ -1,5 +1,6 @@
 ﻿using OnlineStoreManager.API.Services;
 using OnlineStoreManager.Domain.Clients;
+using OnlineStoreManager.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -25,18 +26,18 @@ namespace OnlineStoreManager.API.Controllers
 
         [HttpGet]
         // GET: api/Sales/5
-        public SaleModel Get(int id)
+        public Sale Get(int id)
         {
-            _saleService.Get(id);
-            return new SaleModel();
+            var sale = _saleService.Get(id);
+            return sale;
         }
 
         [HttpPost]
         // POST: api/Sales
-        public void Post([FromBody] List<SaleModel> sale)
+        public IHttpActionResult Post([FromBody] List<SaleModel> sale)
         {
-            _saleService.Add(sale, 1);
-            Console.WriteLine(sale);
+            var saleId = _saleService.Add(sale, 1);
+            return Ok(new { Id = saleId });
         }
 
         [HttpPut]

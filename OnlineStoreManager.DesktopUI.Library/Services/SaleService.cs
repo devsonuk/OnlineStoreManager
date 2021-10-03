@@ -18,14 +18,15 @@ namespace OnlineStoreManager.DesktopUI.Library.Services
             _apiHelper = apiHelper;
         }
 
-        public async Task<bool> AddAsync(List<SaleModel> sale)
+        public async Task<int> AddAsync(List<SaleModel> sale)
         {
             using (HttpResponseMessage response = await _apiHelper.ApiClient.PostAsJsonAsync($"api/sales", sale))
             {
                 if (response.IsSuccessStatusCode)
                 {
                     // Log success ?
-                    return true;
+                    var result = await response.Content.ReadAsAsync<IdResponseModel>();
+                    return result.Id;
                 }
                 else
                 {

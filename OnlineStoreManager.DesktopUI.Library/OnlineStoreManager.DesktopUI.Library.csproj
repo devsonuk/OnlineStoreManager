@@ -54,6 +54,7 @@
     <Compile Include="Helpers\IConfigHelper.cs" />
     <Compile Include="Models\AuthenticatedUserModel.cs" />
     <Compile Include="Models\CartItemModel.cs" />
+    <Compile Include="Models\IdResponseModel.cs" />
     <Compile Include="Models\ILoggedUserModel.cs" />
     <Compile Include="Models\LoggedUserModel.cs" />
     <Compile Include="Models\ProductModel.cs" />

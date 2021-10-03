@@ -6,6 +6,6 @@ namespace OnlineStoreManager.DesktopUI.Library.Services
 {
     public interface ISaleService
     {
-        Task<bool> AddAsync(List<SaleModel> sale);
+        Task<int> AddAsync(List<SaleModel> sale);
     }
 }
