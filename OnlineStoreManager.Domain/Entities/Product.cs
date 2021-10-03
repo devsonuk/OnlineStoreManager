@@ -14,6 +14,6 @@ namespace OnlineStoreManager.Domain.Entities
         public int QuantityInStock { get; set; }
         public bool IsTaxable { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }

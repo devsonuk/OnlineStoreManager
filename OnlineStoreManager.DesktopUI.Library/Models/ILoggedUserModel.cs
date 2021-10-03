@@ -10,6 +10,6 @@ namespace OnlineStoreManager.DesktopUI.Library.Models
         string FirstName { get; set; }
         string Id { get; set; }
         string LastName { get; set; }
-        DateTime UpdatedAt { get; set; }
+        DateTime? UpdatedAt { get; set; }
     }
 }

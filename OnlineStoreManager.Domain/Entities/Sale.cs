@@ -9,6 +9,6 @@ namespace OnlineStoreManager.Domain.Entities
         public decimal Tax { get; set; }
         public decimal Total { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }

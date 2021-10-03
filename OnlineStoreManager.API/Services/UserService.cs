@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using DapperExtensions;
-using DapperExtensions.Predicate;
 
 namespace OnlineStoreManager.API.Services
 {
@@ -20,7 +19,8 @@ namespace OnlineStoreManager.API.Services
 
         public User GetUserByIdentity(string authId)
         {
-            User user = _userRepository.GetByPredicate(Predicates.Field<User>(u => u.AuthId, Operator.Eq, authId)).FirstOrDefault();
+            User user = _userRepository.GetByPredicate(Predicates.Field<User>(u => u.AuthId, Operator.Eq, authId))
+                                       .FirstOrDefault();
             return user;
         }
 

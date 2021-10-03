@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using DapperExtensions;
-using DapperExtensions.Predicate;
 using OnlineStoreManager.Domain;
 using System.Collections.Generic;
 using System.Configuration;

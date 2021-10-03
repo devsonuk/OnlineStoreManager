@@ -11,7 +11,7 @@ namespace OnlineStoreManager.DesktopUI.Library.Models
         public int QuantityInStock { get; set; }
         public bool IsTaxable { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         public string Display => $"{Name} : {RetailPrice} : {QuantityInStock}";
     }
