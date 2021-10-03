@@ -64,6 +64,19 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
             }
         }
 
+        private CartItemModel _selectedCartItem;
+
+        public CartItemModel SelectedCartItem
+        {
+            get { return _selectedCartItem; }
+            set
+            {
+                _selectedCartItem = value;
+                NotifyOfPropertyChange(() => CanRemoveFromCart);
+                NotifyOfPropertyChange(() => ItemQuantity);
+            }
+        }
+
         private BindingList<CartItemModel> _cart = new BindingList<CartItemModel>();
 
         public BindingList<CartItemModel> Cart
@@ -87,6 +100,7 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
                 _itemQuantity = value;
                 NotifyOfPropertyChange(() => ItemQuantity);
                 NotifyOfPropertyChange(() => CanAddToCart);
+                NotifyOfPropertyChange(() => CanRemoveFromCart);
             }
         }
 
@@ -177,21 +191,40 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
             NotifyOfPropertyChange(() => Products);
         }
 
-        public bool CanRemoveFromCart
-        {
-            get
-            {
-                var output = false;
-
-                // Make sure something is selected
-
-                return output;
-            }
-        }
+        public bool CanRemoveFromCart => ItemQuantity > 0 && SelectedCartItem?.QuantityInCart >= ItemQuantity;
 
         public void RemoveFromCart()
         {
+            //Prod Side
+            var existingItem = Products.FirstOrDefault(p => p == SelectedCartItem.Product);
+            int item_idx = Products.IndexOf(existingItem);
 
+            if (existingItem != null)
+            {
+                existingItem.QuantityInStock += ItemQuantity;
+                Products.Remove(existingItem);
+                Products.Insert(item_idx, existingItem);
+            }
+
+            //On Cart Side
+            if (SelectedCartItem.QuantityInCart > ItemQuantity)
+            {
+                SelectedCartItem.QuantityInCart -= ItemQuantity;
+                CartItemModel temp = new CartItemModel { Product = SelectedCartItem.Product, QuantityInCart = SelectedCartItem.QuantityInCart }; 
+                int cart_idx = Cart.IndexOf(SelectedCartItem);
+                Cart.Remove(SelectedCartItem);
+                Cart.Insert(cart_idx, temp);
+            }
+            else if (SelectedCartItem.QuantityInCart == ItemQuantity)
+            {
+                SelectedCartItem.QuantityInCart -= ItemQuantity;
+                int cart_idx = Cart.IndexOf(SelectedCartItem);
+                Cart.RemoveAt(cart_idx);
+            }
+
+            ItemQuantity = 1;
+            NotifyOfPropertyChange(() => Products);
+            NotifyOfPropertyChange(() => Cart);
             NotifyOfPropertyChange(() => SubTotal);
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
