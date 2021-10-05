@@ -21,10 +21,7 @@ namespace OnlineStoreManager.DesktopUI.Library.Helpers
             _loggedInUser = loggedInUserModel;
         }
 
-        public HttpClient ApiClient
-        {
-            get => _apiClient;
-        }
+        public HttpClient ApiClient => _apiClient;
 
         private void InitializeClient()
         {
@@ -70,9 +67,10 @@ namespace OnlineStoreManager.DesktopUI.Library.Helpers
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsAsync<LoggedUserModel>();
+                    _loggedInUser.Id = result.Id;
                     _loggedInUser.FirstName = result.FirstName;
                     _loggedInUser.LastName = result.LastName;
-                    _loggedInUser.EmailAddress = result.EmailAddress;
+                    _loggedInUser.Email = result.Email;
                     _loggedInUser.CreatedAt = result.CreatedAt;
                     _loggedInUser.UpdatedAt = result.UpdatedAt;
                     _loggedInUser.AccessToken = token;

@@ -18,9 +18,9 @@ namespace OnlineStoreManager.DesktopUI.Library.Services
             _apiHelper = apiHelper;
         }
 
-        public async Task<int> AddAsync(List<SaleModel> sale)
+        public async Task<int> AddAsync(List<SaleModel> sale, int userId)
         {
-            using (HttpResponseMessage response = await _apiHelper.ApiClient.PostAsJsonAsync($"api/sales", sale))
+            using (HttpResponseMessage response = await _apiHelper.ApiClient.PostAsJsonAsync($"api/sales/user/{userId}", sale))
             {
                 if (response.IsSuccessStatusCode)
                 {

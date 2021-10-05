@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using OnlineStoreManager.DesktopUI.EventModels;
+using OnlineStoreManager.DesktopUI.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +14,35 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
     {
         private IEventAggregator _events;
         private readonly SalesViewModel _salesVM;
-        public ShellViewModel(IEventAggregator events, SalesViewModel salesVM)
+        private readonly ILoggedUserModel _user;
+        public ShellViewModel(IEventAggregator events, SalesViewModel salesVM, ILoggedUserModel user)
         {
             _events = events;
             _salesVM = salesVM;
+            _user = user;
             _events.SubscribeOnPublishedThread(this);
-            ActivateItemAsync(IoC.Get<LoginViewModel>());
+            _ = ActivateItemAsync(IoC.Get<LoginViewModel>());
+        }
+
+        public bool IsLoggedIn => _user?.AccessToken != null;
+
+
+        public async Task ExitApplicationAsync()
+        {
+            await TryCloseAsync();
+        }
+
+        public void LogOut()
+        {
+            _user.Reset();
+            NotifyOfPropertyChange(() => IsLoggedIn);
+            _ = ActivateItemAsync(IoC.Get<LoginViewModel>());
         }
 
         public async Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
         {
             await ActivateItemAsync(_salesVM);
+            NotifyOfPropertyChange(() => IsLoggedIn);
         }
     }
 }

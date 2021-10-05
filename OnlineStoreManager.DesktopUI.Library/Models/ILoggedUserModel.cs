@@ -6,10 +6,12 @@ namespace OnlineStoreManager.DesktopUI.Library.Models
     {
         string AccessToken { get; set; }
         DateTime CreatedAt { get; set; }
-        string EmailAddress { get; set; }
+        string Email { get; set; }
         string FirstName { get; set; }
-        string Id { get; set; }
+        int Id { get; set; }
         string LastName { get; set; }
         DateTime? UpdatedAt { get; set; }
+
+        void Reset();
     }
 }

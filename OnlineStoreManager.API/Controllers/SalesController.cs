@@ -33,10 +33,11 @@ namespace OnlineStoreManager.API.Controllers
         }
 
         [HttpPost]
+        [Route("api/sales/userId/{userId}")]
         // POST: api/Sales
-        public IHttpActionResult Post([FromBody] List<SaleModel> sale)
+        public IHttpActionResult Post([FromBody] List<SaleModel> sale, [FromUri] int userId)
         {
-            var saleId = _saleService.Add(sale, 1);
+            var saleId = _saleService.Add(sale, userId);
             return Ok(new { Id = saleId });
         }
 

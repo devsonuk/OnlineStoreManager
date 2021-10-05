@@ -17,12 +17,14 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
         private readonly IProductService _productService;
         private readonly ISaleService _saleService;
         private readonly IConfigHelper _configHelper;
+        private readonly ILoggedUserModel _loggedUser;
 
-        public SalesViewModel(IProductService productEndPoint, IConfigHelper configHelper, ISaleService saleService)
+        public SalesViewModel(IProductService productEndPoint, IConfigHelper configHelper, ISaleService saleService, ILoggedUserModel loggedUser)
         {
             _productService = productEndPoint;
             _saleService = saleService;
             _configHelper = configHelper;
+            _loggedUser = loggedUser;
         }
 
         protected override async void OnViewLoaded(object view)
@@ -121,6 +123,11 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
 
                 _subTotal = subTotal;
                 return subTotal.ToString("C");
+            }
+
+            set
+            {
+                _subTotal = Double.Parse(value);
             }
         }
 
@@ -238,10 +245,22 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
         {
             List<SaleModel> sale = Cart.Select(c => new SaleModel { ProductId = c.Product.Id, Quantity = c.QuantityInCart }).ToList();
 
-            int saleId = await _saleService.AddAsync(sale);
+            int saleId = await _saleService.AddAsync(sale, _loggedUser.Id);
+            await ResetPageAsync();
+        }
 
-            await LoadProducts();
+        private async Task ResetPageAsync()
+        {
+            Products.Clear();
             Cart.Clear();
+            SelectedProduct = new ProductModel();
+            SelectedCartItem = new CartItemModel();
+            await LoadProducts();
+
+            NotifyOfPropertyChange(() => SubTotal);
+            NotifyOfPropertyChange(() => Tax);
+            NotifyOfPropertyChange(() => Total);
+            NotifyOfPropertyChange(() => CanCheckOut);
         }
 
     }
