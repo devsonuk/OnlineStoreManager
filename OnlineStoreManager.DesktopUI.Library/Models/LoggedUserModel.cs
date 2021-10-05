@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineStoreManager.DesktopUI.Library.Models
 {
@@ -16,7 +12,7 @@ namespace OnlineStoreManager.DesktopUI.Library.Models
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
-        public void Reset()
+        public void Clear()
         {
             Id = 0;
             AccessToken = null;

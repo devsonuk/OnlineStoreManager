@@ -9,6 +9,7 @@ namespace OnlineStoreManager.DesktopUI.Library.Helpers
         HttpClient ApiClient { get; }
 
         Task<AuthenticatedUserModel> AuthenticateAsync(string userName, string password);
+        void Clear();
         Task FetchLoggedUser(string token);
     }
 }

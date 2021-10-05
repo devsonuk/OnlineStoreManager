@@ -12,6 +12,6 @@ namespace OnlineStoreManager.DesktopUI.Library.Models
         string LastName { get; set; }
         DateTime? UpdatedAt { get; set; }
 
-        void Reset();
+        void Clear();
     }
 }

@@ -77,5 +77,10 @@ namespace OnlineStoreManager.DesktopUI.Library.Helpers
                 }
             }
         }
+
+        public void Clear()
+        {
+            _apiClient.DefaultRequestHeaders.Clear();
+        }
     }
 }
