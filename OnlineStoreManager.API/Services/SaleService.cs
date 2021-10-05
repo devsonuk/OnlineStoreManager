@@ -89,5 +89,10 @@ namespace OnlineStoreManager.API.Services
             Sale sale = _saleRepository.Get(id);
             return sale;
         }
+
+        public List<SaleReport> GetReport()
+        {
+            return _saleRepository.GetAll<SaleReport, dynamic>("dbo.usp_GetSaleReport", new { });
+        }
     }
 }

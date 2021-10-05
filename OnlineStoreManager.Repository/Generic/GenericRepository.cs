@@ -195,25 +195,23 @@ namespace OnlineStoreManager.Repository.Generic
         #endregion Count Methods
 
         #region Custome Methods
-        public List<TEntity> GetAll<TParam>(string storedProcedure, TParam parameters)
+        public List<T> GetAll<T, U>(string storedProcedure, U parameters)
         {
             using (IDbConnection connection = new SqlConnection(ConnectionString))
             {
-                var data = connection.Query<TEntity>(storedProcedure, parameters, commandType: CommandType.StoredProcedure).ToList();
-                return data;
+                return connection.Query<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure).ToList();
             }
         }
 
-        public TEntity Get(string storedProcedure, dynamic id)
+        public T Get<T, U>(string storedProcedure, U parameters)
         {
             using (IDbConnection connection = new SqlConnection(ConnectionString))
             {
-                var data = connection.QuerySingle<TEntity>(storedProcedure, new { Id = id }, commandType: CommandType.StoredProcedure);
-                return data;
+                return connection.QuerySingle<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
         }
 
-        public void Add(string storedProcedure, TEntity parameters)
+        public void Add<T>(string storedProcedure, T parameters)
         {
             using (IDbConnection connection = new SqlConnection(ConnectionString))
             {

@@ -18,10 +18,11 @@ namespace OnlineStoreManager.API.Controllers
         }
 
         [HttpGet]
+        [Route("api/sales/report")]
         // GET: api/Sales
-        public IEnumerable<string> Get()
+        public List<SaleReport> GetSalesReport()
         {
-            return new string[] { "value1", "value2" };
+            return _saleService.GetReport();
         }
 
         [HttpGet]
@@ -43,7 +44,7 @@ namespace OnlineStoreManager.API.Controllers
 
         [HttpPut]
         // PUT: api/Sales/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody] string value)
         {
         }
 
