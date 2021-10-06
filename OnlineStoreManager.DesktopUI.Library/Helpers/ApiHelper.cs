@@ -27,8 +27,10 @@ namespace OnlineStoreManager.DesktopUI.Library.Helpers
         {
             var api = ConfigurationManager.AppSettings.Get("api");
 
-            _apiClient = new HttpClient();
-            _apiClient.BaseAddress = new Uri(api);
+            _apiClient = new HttpClient
+            {
+                BaseAddress = new Uri(api)
+            };
             _apiClient.DefaultRequestHeaders.Accept.Clear();
             _apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

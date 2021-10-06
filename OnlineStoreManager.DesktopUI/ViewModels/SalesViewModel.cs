@@ -6,9 +6,11 @@ using OnlineStoreManager.DesktopUI.Library.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace OnlineStoreManager.DesktopUI.ViewModels
 {
@@ -18,19 +20,46 @@ namespace OnlineStoreManager.DesktopUI.ViewModels
         private readonly ISaleService _saleService;
         private readonly IConfigHelper _configHelper;
         private readonly ILoggedUserModel _loggedUser;
+        private readonly StatusViewModel _status;
+        private readonly IWindowManager _window;
 
-        public SalesViewModel(IProductService productEndPoint, IConfigHelper configHelper, ISaleService saleService, ILoggedUserModel loggedUser)
+        public SalesViewModel(IProductService productEndPoint, IConfigHelper configHelper, 
+            ISaleService saleService, ILoggedUserModel loggedUser, StatusViewModel status, IWindowManager window)
         {
             _productService = productEndPoint;
             _saleService = saleService;
             _configHelper = configHelper;
             _loggedUser = loggedUser;
+            _status = status;
+            _window = window;
         }
 
         protected override async void OnViewLoaded(object view)
         {
             base.OnViewLoaded(view);
-            await LoadProducts();
+            try
+            {
+                await LoadProducts();
+            }
+            catch (Exception ex)
+            {
+                dynamic settings = new ExpandoObject();
+                settings.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                settings.ResizeMode = ResizeMode.NoResize;
+                settings.Title = "System Error";
+
+                if (ex.Message == "Unauthorized")
+                {
+                    _status.UpdateMessage("Unauthorized Access!!!", "You do not have permission to view this content.");
+                    _ = await _window.ShowDialogAsync(_status, null, settings);
+                }
+                else
+                {
+                    _status.UpdateMessage("Fatal Error!!!", ex.Message);
+                    _ = await _window.ShowDialogAsync(_status, null, settings);
+                }
+                await TryCloseAsync();
+            }
 
         }
 

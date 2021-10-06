@@ -24,7 +24,6 @@ namespace OnlineStoreManager.API.Controllers
             string userId = RequestContext.Principal.Identity.GetUserId();
             User user = _userService.GetUserByIdentity(userId);
             return user;
-   
         }
     }
 }

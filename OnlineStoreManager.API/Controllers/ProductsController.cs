@@ -5,7 +5,7 @@ using System.Web.Http;
 
 namespace OnlineStoreManager.API.Controllers
 {
-    [Authorize(Roles = "Cashier")]
+    [Authorize(Roles = "Manager")]
     public class ProductsController : ApiController
     {
         private readonly GenericRepository<Product> _productRepository;
