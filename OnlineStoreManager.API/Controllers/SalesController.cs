@@ -17,12 +17,27 @@ namespace OnlineStoreManager.API.Controllers
             _saleService = new SaleService();
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
         [Route("api/sales/report")]
         // GET: api/Sales
         public List<SaleReport> GetSalesReport()
         {
-            return _saleService.GetReport();
+            if (RequestContext.Principal.IsInRole("Admin"))
+            {
+                // Do Admin stuffs
+                return _saleService.GetReport();
+            }
+            else if (RequestContext.Principal.IsInRole("Manager"))
+            {
+                // Do Admin stuffs
+                return _saleService.GetReport();
+
+            }
+            else
+            {
+                return _saleService.GetReport();
+            }
         }
 
         [HttpGet]
@@ -33,8 +48,9 @@ namespace OnlineStoreManager.API.Controllers
             return sale;
         }
 
+        [Authorize(Roles = "Cashier")]
         [HttpPost]
-        [Route("api/sales/userId/{userId}")]
+        [Route("api/sales/user/{userId}")]
         // POST: api/Sales
         public IHttpActionResult Post([FromBody] List<SaleModel> sale, [FromUri] int userId)
         {

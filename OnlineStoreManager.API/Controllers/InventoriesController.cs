@@ -18,18 +18,22 @@ namespace OnlineStoreManager.API.Controllers
         {
             _inventoryRepository = new GenericRepository<Inventory>("OnlineStoreManager");
         }
+
+        [Authorize(Roles ="Manager")]
         // GET: api/Inventories
         public List<Inventory> Get()
         {
             return _inventoryRepository.GetAll().ToList();
         }
 
+        [Authorize(Roles = "Manager")]
         // GET: api/Inventories/5
         public Inventory Get(int id)
         {
             return _inventoryRepository.Get(id);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: api/Inventories
         public int Post([FromBody]Inventory inventory)
         {
